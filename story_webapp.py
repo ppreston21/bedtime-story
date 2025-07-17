@@ -1,11 +1,7 @@
 import streamlit as st
 from openai import OpenAI
-from dotenv import load_dotenv
-import os
 
-load_dotenv()  # 👈 This loads .env file from your root folder
-
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.title("🦄 Bedtime Story Generator")
 
