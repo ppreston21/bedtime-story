@@ -1,7 +1,15 @@
 import streamlit as st
 from openai import OpenAI
+import os
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+# Unified API key loader: secrets (for Cloud), .env (for local)
+api_key = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+
+if not api_key:
+    st.error("❌ OPENAI_API_KEY not found. Please set it in .env or Streamlit secrets.")
+    st.stop()
+
+client = OpenAI(api_key=api_key)
 
 st.title("🦄 Bedtime Story Generator")
 
